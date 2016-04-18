@@ -1,0 +1,50 @@
+
+// Custom View Transitions
+// -------------------------------
+
+$custom-transition-duration:              500ms !default;
+$custom-transition-timing-function:       cubic-bezier(.36, .66, .04, 1) !default;
+$custom-transition-container-bg-color:    transparent !default;
+
+
+[nav-view-transition="fade"] {
+
+  [nav-view="entering"],
+  [nav-view="leaving"],
+  [view-transition] {
+    // @include transition-duration( $custom-transition-duration );
+    transition-duration: $custom-transition-duration !important; // override framework js style attribute
+    transition: $custom-transition-duration !important;
+    @include transition-timing-function( $custom-transition-timing-function );
+    -webkit-transition-property: opacity, -webkit-transform, box-shadow;
+            transition-property: opacity, transform, box-shadow;
+  }
+
+  &[nav-view-direction="forward"],
+  &[nav-view-direction="back"] {
+    background-color: $custom-transition-container-bg-color;
+  }
+
+  [nav-view="active"],
+  &[nav-view-direction="forward"] [nav-view="entering"],
+  &[nav-view-direction="back"] [nav-view="leaving"] {
+    z-index: $z-index-view-above;
+  }
+
+  &[nav-view-direction="back"] [nav-view="entering"],
+  &[nav-view-direction="forward"] [nav-view="leaving"] {
+    z-index: $z-index-view-below;
+  }
+
+  [nav-view="entering"],
+  [nav-view="leaving"] {
+  	opacity: 0;
+  	transform: scale(1.1) !important; // override frame js style attribute
+  }
+
+  [view-transition="fade"] {
+  	opacity: 0;
+  	transform: scale(1.1) !important;
+  }
+
+}
